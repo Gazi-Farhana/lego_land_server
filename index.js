@@ -26,6 +26,7 @@ async function run() {
     client.connect();
 
     const toyCollection = client.db("toysDB").collection("toys");
+    const sellerCollection = client.db("toysDB").collection("sellers");
 
     //my toys
     app.get("/toys", async (req, res) => {
@@ -53,6 +54,12 @@ async function run() {
       const result = await toyCollection.findOne(query);
       res.send(result);
     });
+
+    //seller collection
+    app.get('/sellers', async (req, res) => {
+      const result = await sellerCollection.find().toArray();
+      res.send(result)
+    })
 
     //category data
     app.get("/category", async (req, res) => {
